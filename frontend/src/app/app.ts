@@ -1,6 +1,6 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { User } from '@myorg/shared';
+import {User} from '@presentation/shared/types/user';
 
 @Component({
   selector: 'app-root',

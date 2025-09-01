@@ -1,17 +1,17 @@
 services:
   libs:
     build:
-      context: ./lib
+      context: libs
       target: dev
     container_name: presentation-libs-dev
-    working_dir: /app/lib
+    working_dir: /app/libs
     volumes:
       - type: bind
-        source: ./lib
-        target: /app/lib
+        source: ./libs
+        target: /app/libs
     entrypoint: ["npm", "run", "dev"]
     healthcheck:
-      test: ["CMD", "test", "-f", "/app/lib/src/index.ts"]
+      test: ["CMD", "test", "-f", "/app/libs/src/index.ts"]
       interval: 500ms
       retries: 60
       start_period: 1s
@@ -28,8 +28,8 @@ services:
         source: ./backend
         target: /app/backend
       - type: bind
-        source: ./lib
-        target: /app/lib
+        source: ./libs
+        target: /app/libs
       - type: volume
         source: backend_node_modules
         target: /app/backend/node_modules
@@ -54,8 +54,8 @@ services:
         source: ./frontend
         target: /app/frontend
       - type: bind
-        source: ./lib
-        target: /app/lib
+        source: ./libs
+        target: /app/libs
       - type: volume
         source: frontend_node_modules
         target: /app/frontend/node_modules

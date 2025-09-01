@@ -15,7 +15,7 @@
     "target": "ES2022",
     "module": "preserve",
     "paths": {
-      "@myorg/shared/*": ["../lib/src/*"]
+      "@presentation/shared/*": ["../libs/src/*"]
     }
   },
   "angularCompilerOptions": {

@@ -2,8 +2,16 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@myorg/shared/*": ["../lib/dist/*"]
+      "@presentation/shared/*": [
+        "../libs/dist/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "../lib/src"]
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "**/*spec.ts",
+    "../libs/src"
+  ]
 }
