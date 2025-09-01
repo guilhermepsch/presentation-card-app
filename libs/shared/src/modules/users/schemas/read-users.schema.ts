@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { PaginationQuerySchema } from '../../../common/schemas/pagination.schema';
+import { PaginationQuerySchema } from '../../../common';
 
 export const ReadUsersSchema = PaginationQuerySchema.extend({
   email: z.email().optional(),
