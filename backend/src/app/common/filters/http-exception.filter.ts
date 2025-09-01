@@ -37,6 +37,7 @@ export class GlobalHttpExceptionFilter implements ExceptionFilter {
     }
 
     const formattedResponse: GenericErrorResponse = {
+      errors: undefined,
       success: false,
       message,
       statusCode: status,

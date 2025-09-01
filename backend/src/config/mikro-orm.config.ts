@@ -11,12 +11,12 @@ const config: Options<PostgreSqlDriver> = {
   user: process.env.DB_USER || 'postgres',
   password: process.env.DB_PASSWORD || 'postgres',
 
-  entities: ['apps/backend/dist/**/*.entity.js'],
-  entitiesTs: ['apps/backend/src/**/*.entity.ts'],
+  entities: ['dist/**/*.entity.js'],
+  entitiesTs: ['src/**/*.entity.ts'],
 
   migrations: {
-    path: 'apps/backend/dist/migrations',
-    pathTs: 'apps/backend/src/migrations',
+    path: 'dist/migrations',
+    pathTs: 'src/migrations',
     glob: '!(*.d).{js,ts}',
   },
 
