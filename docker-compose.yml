@@ -1,0 +1,88 @@
+services:
+  libs:
+    build:
+      context: ./lib
+      target: dev
+    container_name: presentation-libs-dev
+    working_dir: /app/lib
+    volumes:
+      - type: bind
+        source: ./lib
+        target: /app/lib
+    entrypoint: ["npm", "run", "dev"]
+    healthcheck:
+      test: ["CMD", "test", "-f", "/app/lib/src/index.ts"]
+      interval: 500ms
+      retries: 60
+      start_period: 1s
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+      target: dev
+    container_name: presentation-backend-dev
+    working_dir: /app/backend
+    volumes:
+      - type: bind
+        source: ./backend
+        target: /app/backend
+      - type: bind
+        source: ./lib
+        target: /app/lib
+      - type: volume
+        source: backend_node_modules
+        target: /app/backend/node_modules
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
+    entrypoint: ["npm", "run", "start:dev"]
+    depends_on:
+      libs:
+        condition: service_healthy
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+      target: dev
+    container_name: presentation-frontend-dev
+    working_dir: /app/frontend
+    volumes:
+      - type: bind
+        source: ./frontend
+        target: /app/frontend
+      - type: bind
+        source: ./lib
+        target: /app/lib
+      - type: volume
+        source: frontend_node_modules
+        target: /app/frontend/node_modules
+    ports:
+      - "5173:5173"
+    env_file:
+      - ./frontend/.env
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    entrypoint: ["npm", "run", "start"]
+    depends_on:
+      libs:
+        condition: service_healthy
+
+  database:
+    image: postgres:15
+    container_name: presentation-db-dev
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: presentation
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  backend_node_modules:
+  frontend_node_modules:
+  pgdata:
