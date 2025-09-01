@@ -3,7 +3,7 @@
   "compilerOptions": {
     "paths": {
       "@presentation/shared/*": [
-        "../libs/dist/*"
+        "../libs/shared/dist/*"
       ]
     }
   },
@@ -12,6 +12,6 @@
     "test",
     "dist",
     "**/*spec.ts",
-    "../libs/src"
+    "../libs/shared/src"
   ]
 }

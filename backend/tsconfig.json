@@ -25,7 +25,7 @@
     "noFallthroughCasesInSwitch": false,
 
     "paths": {
-      "@presentation/shared/*": ["../libs/src/*"]
+      "@presentation/shared/*": ["../libs/shared/src/*"]
     }
   },
   "include": ["src/**/*"],

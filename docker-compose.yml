@@ -1,17 +1,17 @@
 services:
-  libs:
+  shared-lib:
     build:
-      context: libs
+      context: libs/shared
       target: dev
-    container_name: presentation-libs-dev
-    working_dir: /app/libs
+    container_name: presentation-shared-lib-dev
+    working_dir: /app/libs/shared
     volumes:
       - type: bind
-        source: ./libs
-        target: /app/libs
+        source: ./libs/shared
+        target: /app/libs/shared
     entrypoint: ["npm", "run", "dev"]
     healthcheck:
-      test: ["CMD", "test", "-f", "/app/libs/src/index.ts"]
+      test: ["CMD", "test", "-f", "/app/libs/shared/src/index.ts"]
       interval: 500ms
       retries: 60
       start_period: 1s
@@ -28,8 +28,8 @@ services:
         source: ./backend
         target: /app/backend
       - type: bind
-        source: ./libs
-        target: /app/libs
+        source: ./libs/shared
+        target: /app/libs/shared
       - type: volume
         source: backend_node_modules
         target: /app/backend/node_modules
@@ -39,7 +39,7 @@ services:
       - ./backend/.env
     entrypoint: ["npm", "run", "start:dev"]
     depends_on:
-      libs:
+      shared-lib:
         condition: service_healthy
 
   frontend:
@@ -54,8 +54,8 @@ services:
         source: ./frontend
         target: /app/frontend
       - type: bind
-        source: ./libs
-        target: /app/libs
+        source: ./libs/shared
+        target: /app/libs/shared
       - type: volume
         source: frontend_node_modules
         target: /app/frontend/node_modules
@@ -67,7 +67,7 @@ services:
       - CHOKIDAR_USEPOLLING=true
     entrypoint: ["npm", "run", "start"]
     depends_on:
-      libs:
+      shared-lib:
         condition: service_healthy
 
   database:
