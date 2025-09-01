@@ -22,18 +22,19 @@
   },
   "private": true,
   "dependencies": {
-    "@presentation/shared": "file:../libs/shared",
     "@angular/common": "^20.2.0",
     "@angular/compiler": "^20.2.0",
     "@angular/core": "^20.2.0",
     "@angular/forms": "^20.2.0",
     "@angular/platform-browser": "^20.2.0",
     "@angular/router": "^20.2.0",
+    "@presentation/shared": "file:../libs/shared",
     "@tailwindcss/postcss": "^4.1.12",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.1.12",
     "tslib": "^2.3.0",
+    "zod": "^3.25.76",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {

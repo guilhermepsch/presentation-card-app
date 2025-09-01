@@ -2,8 +2,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "paths": {
-      "@presentation/shared/*": [
-        "../libs/shared/dist/*"
+      "@presentation/shared": [
+        "../libs/shared/dist/index.js"
       ]
     }
   },
