@@ -5,7 +5,7 @@ import {
 } from './cards.repository.interface';
 import {
   CreateCardDto,
-  ReadCardDto,
+  ReadCardsDto,
   UpdateCardDto,
 } from '@presentation/shared';
 import { Card } from './card';
@@ -72,12 +72,23 @@ export class CardsService {
     return this.repository.update(updatedCard);
   }
 
-  async deleteCard(id: string): Promise<void> {
+  async deleteCard(id: string, userId: string): Promise<void> {
+    const existingCard = await this.findCardById(id);
+    if (!existingCard) {
+      throw new UnprocessableEntityException(
+        'Cartão de apresentação não encontrado',
+      );
+    }
+    if (existingCard.userId !== userId) {
+      throw new UnprocessableEntityException(
+        'Você não tem permissão para deletar este cartão',
+      );
+    }
     return this.repository.delete(id);
   }
 
   async findCards(
-    query: ReadCardDto,
+    query: ReadCardsDto,
   ): Promise<{ cards: Card[]; total: number }> {
     return this.repository.findBy(query);
   }

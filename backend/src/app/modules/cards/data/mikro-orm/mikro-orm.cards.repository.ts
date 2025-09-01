@@ -3,7 +3,7 @@ import { EntityRepository, FilterQuery } from '@mikro-orm/core';
 import { MikroOrmCardEntity } from './mikro-orm.card.entity';
 import { ICardsRepository } from '../../domain/cards.repository.interface';
 import { Card } from '../../domain/card';
-import { ReadCardDto } from '@presentation/shared';
+import { ReadCardsDto } from '@presentation/shared';
 import { MikroOrmCardsMapper } from './mikro-orm.cards.mapper';
 import { MikroOrmUserEntity } from '../../../users/data/mikro-orm/mikro-orm.user.entity';
 
@@ -46,7 +46,7 @@ export class MikroOrmCardsRepository implements ICardsRepository {
     return MikroOrmCardsMapper.toDomain(entity);
   }
 
-  async findBy(query: ReadCardDto): Promise<{ cards: Card[]; total: number }> {
+  async findBy(query: ReadCardsDto): Promise<{ cards: Card[]; total: number }> {
     const filters: FilterQuery<MikroOrmCardEntity> = {};
 
     if (query.fullName) {
