@@ -1,15 +1,15 @@
 import { Module } from '@nestjs/common';
 import { WinstonLoggerService } from './data/winston/winston.logger.service';
-import { ILoggerService } from './domain/logger.service.interface';
+import { ILoggerServiceToken } from './domain/logger.service.interface';
 
 @Module({
   providers: [
     {
-      provide: ILoggerService,
+      provide: ILoggerServiceToken,
       useClass: WinstonLoggerService,
     },
   ],
   imports: [],
-  exports: [ILoggerService],
+  exports: [ILoggerServiceToken],
 })
 export class LoggerModule {}

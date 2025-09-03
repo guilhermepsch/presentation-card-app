@@ -42,6 +42,15 @@ services:
       shared-lib:
         condition: service_healthy
 
+  screenshot-service:
+    build:
+      context: ./screenshot-service
+      dockerfile: Dockerfile
+    ports:
+      - 5000:3000
+    restart: unless-stopped
+    shm_size: '1gb'
+
   frontend:
     build:
       context: .

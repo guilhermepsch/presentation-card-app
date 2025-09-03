@@ -1,4 +1,4 @@
-export const ILoggerService = Symbol('IUserRepository');
+export const ILoggerServiceToken = Symbol('IUserRepository');
 
 export interface ILoggerService {
   info(message: string, meta?: never): void;

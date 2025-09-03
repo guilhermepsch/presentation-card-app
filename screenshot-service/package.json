@@ -1,0 +1,21 @@
+{
+  "name": "screenshot-service",
+  "version": "1.0.0",
+  "description": "Microservice to take screenshots of web pages",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "screenshot",
+    "playwright",
+    "express"
+  ],
+  "author": "Digiliza",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "playwright-chromium": "^1.40.1"
+  }
+} 

@@ -7,8 +7,11 @@ import {
   Patch,
   Post,
   Query,
+  Req,
   Request,
+  Res,
 } from '@nestjs/common';
+import { Response } from 'express';
 import { CardsService } from '../domain/cards.service';
 import { Public } from '../../../common/decorators/is-public.decorator';
 import { ZodPipe } from '../../../common/pipes/zod-validation.pipe';
@@ -34,6 +37,19 @@ export class CardsController {
     @Request() req: RequestWithUser,
   ) {
     return await this.cardsService.createCard(body, req.user.sub);
+  }
+
+  @Get('screenshot')
+  async generateScreenshot(@Req() req: RequestWithUser, @Res() res: Response) {
+    const screenshot = await this.cardsService.generateScreenshot(req.user.sub);
+
+    res.setHeader('Content-Type', 'image/png');
+    res.setHeader(
+      'Content-Disposition',
+      `attachment; filename="screenshot-${req.user.sub}.png"`,
+    );
+
+    res.send(screenshot);
   }
 
   @Public()

@@ -1,4 +1,8 @@
-import { Inject, UnprocessableEntityException } from '@nestjs/common';
+import {
+  Inject,
+  NotFoundException,
+  UnprocessableEntityException,
+} from '@nestjs/common';
 import {
   ICardsRepository,
   ICardsRepositoryToken,
@@ -10,11 +14,17 @@ import {
 } from '@presentation/shared';
 import { Card } from './card';
 import { v4 as uuid } from 'uuid';
+import {
+  IScreenshotService,
+  IScreenshotServiceToken,
+} from '../../../common/resources/screenshot/domain/screenshot.service.interface';
 
 export class CardsService {
   constructor(
     @Inject(ICardsRepositoryToken)
     private readonly repository: ICardsRepository,
+    @Inject(IScreenshotServiceToken)
+    private readonly screenshotService: IScreenshotService,
   ) {}
 
   async createCard(card: CreateCardDto, userId: string): Promise<Card> {
@@ -99,5 +109,15 @@ export class CardsService {
 
   async findByUserId(id: string): Promise<Card | null> {
     return this.repository.findByUserId(id);
+  }
+
+  async generateScreenshot(id: string) {
+    const card = await this.findByUserId(id);
+    if (!card) {
+      throw new NotFoundException('Cartão de apresentação não encontrado');
+    }
+    return await this.screenshotService.generateScreenshot(
+      `http://frontend:4200/presentation/${card.id}`,
+    );
   }
 }
