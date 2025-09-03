@@ -21,6 +21,13 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'presentation/:userId',
+    loadComponent: () =>
+      import('./features/cards/view/card-view.component').then(
+        (m) => m.CardViewComponent
+      ),
+  },
+  {
     path: '**',
     redirectTo: '',
   },

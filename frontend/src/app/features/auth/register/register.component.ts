@@ -7,7 +7,7 @@ import {UsersService} from '../../../core/services/users.service';
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
+  templateUrl: './register.html',
   imports: [CommonModule, FormsModule, RouterLink],
   standalone: true,
 })

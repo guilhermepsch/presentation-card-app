@@ -8,7 +8,7 @@ import {ToastService} from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login.component.html',
+  templateUrl: './login.html',
   imports: [CommonModule, FormsModule, RouterLink],
   standalone: true,
 })
