@@ -9,6 +9,7 @@ export class GlobalErrorFilter implements ErrorHandler {
   private toastService = inject(ToastService);
 
   handleError(error: unknown): void {
+    console.log('ta pegando o  erro ao menos?')
     let normalized: GenericErrorResponse;
 
     if (error instanceof HttpErrorResponse) {
@@ -19,7 +20,7 @@ export class GlobalErrorFilter implements ErrorHandler {
         errors: error.error?.errors,
       };
     } else if (error instanceof ZodError) {
-      // 🔹 Format issues like: "email: Invalid email", "phone: Phone is required"
+      console.log('é um zoderror')
       const formattedIssues = error.errors.map(issue => {
         const path = issue.path.join('.') || 'field';
         return `${path}: ${issue.message}`;

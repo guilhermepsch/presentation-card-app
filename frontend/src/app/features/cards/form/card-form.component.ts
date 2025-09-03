@@ -100,9 +100,6 @@ export class CardFormComponent implements OnInit {
       }
 
       this.router.navigate(['/cards', this.currentUserId]);
-    } catch (err) {
-      console.error('Failed to save card', err);
-      this.toast.error('Erro', 'Não foi possível salvar o cartão');
     } finally {
       this.saving.set(false);
     }
