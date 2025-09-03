@@ -6,12 +6,14 @@ import {
   ResponseCardDto,
 } from '@presentation/shared';
 import {CardsApiService} from './api/cards-api.service';
+import { ToastService } from './toast.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CardsService {
   private cardsApi = inject(CardsApiService);
+  private toast = inject(ToastService);
 
   async create(card: CreateCardDto): Promise<ResponseCardDto> {
     await CreateCardSchema.parseAsync(card);
@@ -33,10 +35,11 @@ export class CardsService {
     return response.data;
   }
 
-  async delete(cardId: string): Promise<ResponseCardDto> {
+  async delete(cardId: string): Promise<boolean> {
     await IdParamUuidSchema.parseAsync({id: cardId});
-    const response = await firstValueFrom(this.cardsApi.deleteCard(cardId));
-    return response.data;
+    await firstValueFrom(this.cardsApi.deleteCard(cardId));
+    this.toast.success('Sucesso', 'Cartão deletado com sucesso');
+    return true;
   }
 
   async downloadScreenshot(userId: string) {

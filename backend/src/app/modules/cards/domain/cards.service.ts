@@ -108,16 +108,21 @@ export class CardsService {
   }
 
   async findByUserId(id: string): Promise<Card | null> {
-    return this.repository.findByUserId(id);
+    const card = await this.repository.findByUserId(id);
+    if (!card) {
+      throw new NotFoundException('Cartão de apresentação não encontrado');
+    }
+    return card;
   }
 
   async generateScreenshot(id: string) {
+    console.log(`http://frontend:4200/cards/${id}`);
     const card = await this.findByUserId(id);
     if (!card) {
       throw new NotFoundException('Cartão de apresentação não encontrado');
     }
     return await this.screenshotService.generateScreenshot(
-      `http://frontend:4200/card/${id}`,
+      `http://frontend:4200/cards/${id}`,
     );
   }
 }

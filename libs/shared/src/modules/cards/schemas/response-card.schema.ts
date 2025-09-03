@@ -9,8 +9,8 @@ export const ResponseCardSchema = z.object({
     phoneNumber: z.string().optional(),
     description: z.string().optional(),
     userId: z.string().uuid(),
-    createdAt: z.date(),
-    updatedAt: z.date(),
+    createdAt: z.string().date(),
+    updatedAt: z.string().date(),
 });
 
 export type ResponseCardDto = z.infer<typeof ResponseCardSchema>;

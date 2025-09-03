@@ -29,3 +29,52 @@
   background-color: rgba(239, 68, 68, 0.9) !important; /* red-500 */
   color: white !important;
 }
+
+/* ConfirmDialog general styling */
+.p-confirm-dialog {
+  border-radius: 1rem; /* match rounded-2xl */
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* similar to shadow-2xl */
+  padding: 2rem; /* p-10 */
+  font-family: 'Inter', sans-serif; /* match project font */
+}
+
+/* Header */
+.p-confirm-dialog .p-confirm-dialog-header {
+  font-weight: 800; /* font-extrabold */
+  font-size: 1.5rem; /* text-2xl */
+  color: rgb(109, 40, 217); /* purple-700 */
+}
+
+/* Message */
+.p-confirm-dialog .p-confirm-dialog-message {
+  color: rgb(75, 85, 99); /* gray-600 */
+  font-size: 1rem; /* text-base */
+  margin-top: 0.5rem;
+}
+
+/* Buttons */
+.p-confirm-dialog .p-confirm-dialog-accept {
+  background-color: rgb(109, 40, 217); /* purple-700 */
+  color: white;
+  border-radius: 0.75rem; /* rounded-xl */
+  padding: 0.75rem 1.25rem; /* px-5 py-3 */
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.p-confirm-dialog .p-confirm-dialog-accept:hover {
+  background-color: rgb(88, 28, 135); /* darker purple-700 */
+}
+
+.p-confirm-dialog .p-confirm-dialog-reject {
+  background-color: rgb(239, 68, 68); /* red-500 */
+  color: white;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  transition: background-color 0.3s ease;
+}
+
+.p-confirm-dialog .p-confirm-dialog-reject:hover {
+  background-color: rgb(185, 28, 28); /* darker red-600 */
+}

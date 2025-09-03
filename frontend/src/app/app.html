@@ -6,7 +6,7 @@
       <nav class="space-x-6">
         @if (authService.user()?.payload?.sub) {
           <a
-            routerLink="card/{{authService.user()?.payload?.sub}}"
+            routerLink="cards/{{authService.user()?.payload?.sub}}"
             class="relative text-white font-medium transition-all duration-300 hover:text-purple-100 hover:after:w-full after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:w-0 after:bg-gradient-to-r after:from-white after:to-purple-200 after:transition-all"
           >
             Card

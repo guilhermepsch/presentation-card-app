@@ -1,4 +1,5 @@
-import {Routes} from '@angular/router';
+import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -21,11 +22,37 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'card/:userId',
-    loadComponent: () =>
-      import('./features/cards/view/card-view.component').then(
-        (m) => m.CardViewComponent
-      ),
+    path: 'cards',
+    children: [
+      {
+        path: 'form/new',
+        loadComponent: () =>
+          import('./features/cards/form/card-form.component').then(
+            (m) => m.CardFormComponent
+          ),
+        canActivate: [authGuard],
+      },
+      {
+        path: 'form/edit/:userId',
+        loadComponent: () =>
+          import('./features/cards/form/card-form.component').then(
+            (m) => m.CardFormComponent
+          ),
+        canActivate: [authGuard],
+      },
+      {
+        path: ':userId',
+        loadComponent: () =>
+          import('./features/cards/view/card-view.component').then(
+            (m) => m.CardViewComponent
+          ),
+      },
+      {
+        path: '',
+        redirectTo: '',
+        pathMatch: 'full',
+      },
+    ],
   },
   {
     path: '**',

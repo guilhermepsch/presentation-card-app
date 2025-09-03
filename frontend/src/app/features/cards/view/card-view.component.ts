@@ -1,34 +1,26 @@
 import {Component, inject, OnInit, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../core/services/auth.service';
 import {CardsService} from '../../../core/services/cards.service';
-
-interface Card {
-  id: string;
-  fullName: string;
-  title: string;
-  email: string;
-  socialMedia: string;
-  phoneNumber?: string;
-  description?: string;
-  userId: string;
-  createdAt: string;
-  updatedAt: string;
-}
+import {ResponseCardDto} from '@presentation/shared';
+import {ToastService} from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-card-view',
   standalone: true,
   imports: [CommonModule],
+  providers: [],
   templateUrl: './card-view.html',
 })
 export class CardViewComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private auth = inject(AuthService);
   private cards = inject(CardsService);
+  private router = inject(Router);
+  private toast = inject(ToastService);
 
-  card = signal<Card | null>(null);
+  card = signal<ResponseCardDto | null>(null);
   userId: string | null = null;
   loading = signal(true);
   screenshotLoading = signal(false);
@@ -38,25 +30,13 @@ export class CardViewComponent implements OnInit {
     this.userId = this.route.snapshot.paramMap.get('userId');
     if (!this.userId) return;
 
-    setTimeout(() => {
-      if (this.userId === '8b5b0d35-606f-4c35-918a-8ecc40d186dd') {
-        this.card.set({
-          id: 'e533f1b0-d701-44de-86b8-0f7104860498',
-          fullName: 'Alice Johnson',
-          title: 'Software Engineer',
-          email: 'alice.johnson@example.com',
-          socialMedia: '@alicejohnson',
-          phoneNumber: '+1234567890',
-          description: 'Loves coding and coffee.',
-          userId: '8b5b0d35-606f-4c35-918a-8ecc40d186dd',
-          createdAt: '2025-09-03T16:52:59.031Z',
-          updatedAt: '2025-09-03T16:52:59.031Z',
-        });
-      } else {
-        this.card.set(null);
-      }
+    try {
+      this.loadCard();
+    } catch (err) {
+      console.error('Failed to load card', err);
+    } finally {
       this.loading.set(false);
-    }, 1000);
+    }
   }
 
   get isOwnCard(): boolean {
@@ -66,11 +46,19 @@ export class CardViewComponent implements OnInit {
   }
 
   editCard() {
-    console.log('Edit card clicked');
+    const cardId = this.card()?.id;
+    if (!cardId) return;
+
+    this.router.navigate([`/cards/form/edit/${this.userId}`]);
   }
 
-  deleteCard() {
-    this.cards.delete(this.card()?.id ?? '');
+
+  async deleteCard() {
+    const cardId = this.card()?.id;
+    if (!cardId) return;
+    const success = await this.cards.delete(cardId);
+    if (!success) return;
+    this.card.set(null);
   }
 
   async printCard() {
@@ -86,8 +74,19 @@ export class CardViewComponent implements OnInit {
     }
   }
 
-
   createCard() {
-    console.log('Create new card for current user');
+    this.router.navigate([`/cards/form/new`]);
+  }
+
+  async loadCard() {
+    try {
+      this.card.set(await this.cards.findByUserId(this.userId!));
+    } catch (err) {
+      console.error('Failed to load card', err);
+      this.toast.error('Erro', 'Não foi possível carregar o cartão');
+      this.router.navigate(['/cards', this.auth.user()?.payload.sub]);
+    } finally {
+      this.loading.set(false);
+    }
   }
 }
