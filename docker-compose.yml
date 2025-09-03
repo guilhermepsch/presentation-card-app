@@ -60,12 +60,12 @@ services:
         source: frontend_node_modules
         target: /app/frontend/node_modules
     ports:
-      - "5173:5173"
+      - "4200:4200"
     env_file:
       - ./frontend/.env
     environment:
       - CHOKIDAR_USEPOLLING=true
-    entrypoint: ["npm", "run", "start"]
+    entrypoint: [ "npm", "run", "start", "--", "--host", "0.0.0.0" ]
     depends_on:
       shared-lib:
         condition: service_healthy

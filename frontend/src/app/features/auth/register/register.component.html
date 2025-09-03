@@ -1,0 +1,52 @@
+<div class="flex flex-col items-center justify-center min-h-[60vh]">
+  <div class="w-full max-w-md p-8 bg-white shadow-md rounded-md">
+    <h2 class="text-2xl font-semibold text-purple-700 mb-6 text-center">Register</h2>
+
+    <form (submit)="register($event)" class="space-y-4">
+
+      <div>
+        <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          id="email"
+          type="email"
+          [value]="email()"
+          (input)="email.set($any($event.target).value)"
+          required
+          class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-sm p-2"
+        />
+      </div>
+
+      <div>
+        <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+        <input
+          id="password"
+          type="password"
+          [value]="password()"
+          (input)="password.set($any($event.target).value)"
+          required
+          class="mt-1 block w-full rounded-md border border-gray-300 bg-white shadow-sm p-2"
+        />
+      </div>
+
+      <button
+        type="submit"
+        [disabled]="loading()"
+        class="w-full bg-gradient-to-r from-purple-600 to-purple-400 text-white font-semibold py-2 rounded-md hover:from-purple-700 hover:to-purple-500 transition-colors"
+      >
+        @if (loading()) { Registering... } @else { Register }
+      </button>
+
+      @if (successMessage()) {
+        <p class="text-green-600 mt-2">{{ successMessage() }}</p>
+      }
+      @if (errorMessage()) {
+        <p class="text-red-600 mt-2">{{ errorMessage() }}</p>
+      }
+
+      <p class="mt-4 text-sm text-gray-600 text-center">
+        Already have an account?
+        <a routerLink="/login" class="text-purple-600 hover:text-purple-800 font-medium">Login</a>
+      </p>
+    </form>
+  </div>
+</div>

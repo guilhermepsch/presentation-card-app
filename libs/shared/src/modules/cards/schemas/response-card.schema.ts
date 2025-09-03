@@ -1,12 +1,14 @@
 import { z } from 'zod';
 
-export const CreateCardSchema = z.object({
+export const ResponseCardSchema = z.object({
+    id: z.string().uuid(),
     fullName: z.string(),
     title: z.string(),
     email: z.string().email(),
     socialMedia: z.string(),
     phoneNumber: z.string().optional(),
     description: z.string().optional(),
+    userId: z.string().uuid(),
+    createdAt: z.date(),
+    updatedAt: z.date(),
 });
-
-export type CreateCardDto = z.infer<typeof CreateCardSchema>;
