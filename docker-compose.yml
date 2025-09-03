@@ -12,9 +12,9 @@ services:
       - type: volume
         source: shared-lib_node_modules
         target: /app/libs/shared/node_modules
-    entrypoint: ["npm", "run", "dev"]
+    entrypoint: [ "sh", "-c", "npm install && npm run dev" ]
     healthcheck:
-      test: ["CMD", "test", "-f", "/app/libs/shared/src/index.ts"]
+      test: [ "CMD", "test", "-f", "/app/libs/shared/src/index.ts" ]
       interval: 500ms
       retries: 60
       start_period: 1s
@@ -36,11 +36,14 @@ services:
       - type: volume
         source: backend_node_modules
         target: /app/backend/node_modules
+      - type: volume
+        source: shared-lib_node_modules
+        target: /app/libs/shared/node_modules
     ports:
       - "3000:3000"
     env_file:
       - ./backend/.env
-    entrypoint: ["npm", "run", "start:dev"]
+    entrypoint: [ "npm", "run", "start:dev" ]
     depends_on:
       shared-lib:
         condition: service_healthy
@@ -72,6 +75,9 @@ services:
       - type: volume
         source: frontend_node_modules
         target: /app/frontend/node_modules
+      - type: volume
+        source: shared-lib_node_modules
+        target: /app/libs/shared/node_modules
     ports:
       - "4200:4200"
     env_file:
