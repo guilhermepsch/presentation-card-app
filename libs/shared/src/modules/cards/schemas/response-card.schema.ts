@@ -12,3 +12,5 @@ export const ResponseCardSchema = z.object({
     createdAt: z.date(),
     updatedAt: z.date(),
 });
+
+export type ResponseCardDto = z.infer<typeof ResponseCardSchema>;

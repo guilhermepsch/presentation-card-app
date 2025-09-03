@@ -57,7 +57,7 @@ export class CardsController {
   async findById(
     @Param(new ZodPipe(IdParamUuidSchema)) params: IdParamUuidDto,
   ) {
-    return await this.cardsService.findCardById(params.id);
+    return await this.cardsService.findByUserId(params.id);
   }
 
   @Public()

@@ -2,6 +2,7 @@ import {Component, inject, OnInit, signal} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute} from '@angular/router';
 import {AuthService} from '../../../core/services/auth.service';
+import {CardsService} from '../../../core/services/cards.service';
 
 interface Card {
   id: string;
@@ -25,10 +26,13 @@ interface Card {
 export class CardViewComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private auth = inject(AuthService);
+  private cards = inject(CardsService);
 
   card = signal<Card | null>(null);
   userId: string | null = null;
   loading = signal(true);
+  screenshotLoading = signal(false);
+
 
   ngOnInit() {
     this.userId = this.route.snapshot.paramMap.get('userId');
@@ -66,12 +70,22 @@ export class CardViewComponent implements OnInit {
   }
 
   deleteCard() {
-    console.log('Delete card clicked');
+    this.cards.delete(this.card()?.id ?? '');
   }
 
-  printCard() {
-    window.print();
+  async printCard() {
+    if (!this.userId || this.screenshotLoading()) return;
+
+    this.screenshotLoading.set(true);
+    try {
+      await this.cards.downloadScreenshot(this.userId);
+    } catch (err) {
+      console.error('Screenshot failed', err);
+    } finally {
+      this.screenshotLoading.set(false);
+    }
   }
+
 
   createCard() {
     console.log('Create new card for current user');
