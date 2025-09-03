@@ -43,6 +43,7 @@ services:
         condition: service_healthy
 
   screenshot-service:
+    container_name: presentation-screenshot-service-dev
     build:
       context: ./screenshot-service
       dockerfile: Dockerfile

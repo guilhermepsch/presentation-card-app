@@ -117,7 +117,7 @@ export class CardsService {
       throw new NotFoundException('Cartão de apresentação não encontrado');
     }
     return await this.screenshotService.generateScreenshot(
-      `http://frontend:4200/presentation/${card.id}`,
+      `http://frontend:4200/card/${id}`,
     );
   }
 }
