@@ -14,7 +14,7 @@ import {
 })
 export class UsersApiService {
   private http = inject(HttpClient);
-  private readonly baseUrl = '/api/users';
+  private readonly baseUrl = '/users';
 
   createUser(
     payload: CreateUserDto

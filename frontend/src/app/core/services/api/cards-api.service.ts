@@ -8,7 +8,7 @@ import {IS_PRIVATE} from '../../context/http.context';
 })
 export class CardsApiService {
   private http = inject(HttpClient);
-  private readonly baseUrl = '/api/cards';
+  private readonly baseUrl = '/cards';
 
   createCard(card: CreateCardDto) {
     return this.http.post<GenericResponseOf<typeof ResponseCardSchema>>(`${this.baseUrl}`, card, {

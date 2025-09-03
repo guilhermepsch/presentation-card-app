@@ -57,6 +57,7 @@ export class CardsController {
   async findById(
     @Param(new ZodPipe(IdParamUuidSchema)) params: IdParamUuidDto,
   ) {
+    console.log('hit the findById');
     return await this.cardsService.findByUserId(params.id);
   }
 

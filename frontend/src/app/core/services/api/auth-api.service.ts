@@ -8,7 +8,7 @@ import {GenericResponseOf, SignInDto, SignInResponseSchema} from '@presentation/
 })
 export class AuthApiService {
   private http = inject(HttpClient);
-  private readonly baseUrl = '/api/auth';
+  private readonly baseUrl = '/auth';
 
   login(payload: SignInDto): Observable<GenericResponseOf<typeof SignInResponseSchema>> {
     return this.http.post<GenericResponseOf<typeof SignInResponseSchema>>(

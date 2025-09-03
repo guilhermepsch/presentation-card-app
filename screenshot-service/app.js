@@ -45,6 +45,14 @@ app.get('/screenshot', async (req, res) => {
     const page = await context.newPage();
     console.log(`Navigating to ${url}...`);
 
+    // Log all network requests
+    page.on('request', request => {
+      console.log('> Request:', request.method(), request.url());
+    });
+    page.on('response', response => {
+      console.log('< Response:', response.status(), response.url());
+    });
+
     await page.goto(url, {
       waitUntil: 'networkidle',
       timeout: 30000
