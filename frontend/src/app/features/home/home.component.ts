@@ -1,11 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { Button } from 'primeng/button';
 import {ToastService} from '../../core/services/toast.service';
+import {RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [Button],
+  imports: [Button, RouterLink],
   templateUrl: './home.component.html',
 })
 export class HomeComponent {

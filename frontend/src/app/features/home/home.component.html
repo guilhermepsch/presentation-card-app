@@ -1,13 +1,39 @@
-<div class="p-6 flex flex-col gap-4">
-  <h2 class="text-2xl font-bold text-green-600">Home Page 🏠</h2>
-  <p class="mt-2 text-gray-700">
-    This is a standalone routed component..
+<div class="flex flex-col items-center justify-center text-center py-20">
+  <h2 class="text-4xl font-bold bg-gradient-to-r from-purple-600 to-purple-400 bg-clip-text text-transparent">
+    Bem-vindo ao PurplePresentations
+  </h2>
+  <p class="mt-4 text-lg text-gray-600 max-w-xl">
+    Crie, compartilhe e se apresente de forma simples e elegante.
+    Para começar, faça login ou crie sua conta gratuita agora mesmo.
   </p>
 
-  <div class="flex flex-wrap gap-3 mt-4">
-    <p-button label="Show Success" (click)="showSuccess()"></p-button>
-    <p-button label="Show Info" (click)="showInfo()"></p-button>
-    <p-button label="Show Error" (click)="showError()"></p-button>
-    <p-button label="Show All" (click)="showAll()"></p-button>
+  <div class="mt-8 flex space-x-6">
+    <a
+      routerLink="/login"
+      class="px-6 py-3 rounded-2xl shadow-md bg-purple-600 text-white font-medium transition transform hover:scale-105 hover:bg-purple-700 cursor-pointer"
+    >
+      Login
+    </a>
+    <a
+      routerLink="/register"
+      class="px-6 py-3 rounded-2xl shadow-md bg-white text-purple-600 border border-purple-400 font-medium transition transform hover:scale-105 cursor-pointer hover:bg-purple-50"
+    >
+      Criar Conta
+    </a>
+  </div>
+
+  <div class="mt-16 grid md:grid-cols-2 gap-8 max-w-4xl">
+    <div class="p-6 bg-white rounded-2xl shadow-sm border">
+      <h3 class="text-xl font-semibold text-purple-600">Fácil de usar</h3>
+      <p class="mt-2 text-gray-600">
+        Em poucos cliques, você pode montar uma apresentação profissional sem complicação.
+      </p>
+    </div>
+    <div class="p-6 bg-white rounded-2xl shadow-sm border">
+      <h3 class="text-xl font-semibold text-purple-600">Compartilhe com o mundo</h3>
+      <p class="mt-2 text-gray-600">
+        Envie suas apresentações para colegas, amigos ou clientes de forma prática e rápida.
+      </p>
+    </div>
   </div>
 </div>

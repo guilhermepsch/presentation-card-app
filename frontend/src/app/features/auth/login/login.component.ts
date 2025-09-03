@@ -4,6 +4,7 @@ import {FormsModule} from '@angular/forms';
 import {RouterLink} from '@angular/router';
 import {AuthService} from '../../../core/services/auth.service';
 import {SignInDto} from '@presentation/shared';
+import {ToastService} from '../../../core/services/toast.service';
 
 @Component({
   selector: 'app-login',
@@ -13,6 +14,7 @@ import {SignInDto} from '@presentation/shared';
 })
 export class LoginComponent {
   private auth = inject(AuthService);
+  private toast = inject(ToastService);
 
   email = signal('');
   password = signal('');
@@ -24,10 +26,12 @@ export class LoginComponent {
       password: this.password(),
     };
     await this.auth.login(payload);
+    this.toast.success('Sucesso', 'Login realizado com sucesso');
   };
 
   logout = () => {
     this.auth.logout();
+    this.toast.success('Sucesso', 'Logout realizado com sucesso');
   };
 
   get isLoading() {

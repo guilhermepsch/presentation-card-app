@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {RouterLink, RouterOutlet} from '@angular/router';
 import {ToastModule} from 'primeng/toast';
+import {AuthService} from './core/services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,5 @@ import {ToastModule} from 'primeng/toast';
   imports: [CommonModule, RouterOutlet, ToastModule, RouterLink],
 })
 export class AppComponent {
+  protected authService = inject(AuthService);
 }
