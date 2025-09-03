@@ -9,6 +9,9 @@ services:
       - type: bind
         source: ./libs/shared
         target: /app/libs/shared
+      - type: volume
+        source: shared-lib_node_modules
+        target: /app/libs/shared/node_modules
     entrypoint: ["npm", "run", "dev"]
     healthcheck:
       test: ["CMD", "test", "-f", "/app/libs/shared/src/index.ts"]
@@ -93,6 +96,7 @@ services:
       - pgdata:/var/lib/postgresql/data
 
 volumes:
+  shared-lib_node_modules:
   backend_node_modules:
   frontend_node_modules:
   pgdata:
